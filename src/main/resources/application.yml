@@ -1,0 +1,13 @@
+server:
+  tomcat:
+    threads:
+      max: 50
+      min-spare: 5
+    keep-alive-timeout: 15
+    connection-timeout: 2s
+  port: 9001
+  shutdown: graceful
+
+spring:
+  application:
+    name: catalog-service
