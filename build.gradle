@@ -21,9 +21,17 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('otelVersion', "1.32.0")
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.retry:spring-retry'
+
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+    runtimeOnly "io.opentelemetry.javaagent:opentelemetry-javaagent:${otelVersion}"
 
     compileOnly 'org.projectlombok:lombok'
 
@@ -42,6 +50,9 @@ bootBuildImage {
             url = project.findProperty("registryUrl")
         }
     }
+}
+bootRun {
+    systemProperty 'spring.profiles.active', 'testdata'
 }
 
 tasks.named('test') {
